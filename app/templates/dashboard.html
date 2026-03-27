@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Dashboard</h1>
+<p>Welcome, {{ user.full_name }}.</p>
+
+<div class="stats-grid">
+    <div class="card"><h3>My Books</h3><p>{{ my_books|length }}</p></div>
+    <div class="card"><h3>Incoming Requests</h3><p>{{ incoming|length }}</p></div>
+    <div class="card"><h3>Outgoing Requests</h3><p>{{ outgoing|length }}</p></div>
+    <div class="card"><h3>Loans</h3><p>{{ loans|length }}</p></div>
+</div>
+{% endblock %}

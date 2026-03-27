@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Borrow Requests</h1>
+
+<h2>Incoming</h2>
+<div class="card-grid">
+    {% for req in incoming %}
+    <div class="card">
+        <p><strong>Book ID:</strong> {{ req.book_id }}</p>
+        <p><strong>Status:</strong> {{ req.status }}</p>
+        <p><strong>Message:</strong> {{ req.message or 'No message' }}</p>
+        {% if req.status == 'pending' %}
+        <form method="post" action="/requests/{{ req.id }}/approve">
+            <label>Due Date</label>
+            <input type="date" name="due_date" required>
+            <button class="btn" type="submit">Approve</button>
+        </form>
+        <form method="post" action="/requests/{{ req.id }}/reject">
+            <button class="btn danger" type="submit">Reject</button>
+        </form>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<h2>Outgoing</h2>
+<div class="card-grid">
+    {% for req in outgoing %}
+    <div class="card">
+        <p><strong>Book ID:</strong> {{ req.book_id }}</p>
+        <p><strong>Status:</strong> {{ req.status }}</p>
+        <p><strong>Message:</strong> {{ req.message or 'No message' }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

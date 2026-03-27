@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+    <h1>Neighborhood Book Lending Made Simple</h1>
+    <p>List books, request borrows, manage due dates, and return books smoothly.</p>
+    <a class="btn" href="/register">Get Started</a>
+</section>
+
+<section>
+    <h2>Recent Books</h2>
+    <div class="card-grid">
+        {% for book in books %}
+        <div class="card">
+            <h3>{{ book.title }}</h3>
+            <p><strong>Author:</strong> {{ book.author }}</p>
+            <p><strong>Genre:</strong> {{ book.genre }}</p>
+            <p><strong>Status:</strong> {{ 'Available' if book.is_available else 'On Loan' }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

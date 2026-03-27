@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+    <h1>Books</h1>
+    <a class="btn" href="/books/add">Add Book</a>
+</div>
+
+<div class="card-grid">
+    {% for book in books %}
+    <div class="card">
+        <h3>{{ book.title }}</h3>
+        <p><strong>Author:</strong> {{ book.author }}</p>
+        <p><strong>Genre:</strong> {{ book.genre }}</p>
+        <p><strong>Condition:</strong> {{ book.condition }}</p>
+        <p><strong>Status:</strong> {{ 'Available' if book.is_available else 'On Loan' }}</p>
+        {% if book.description %}
+        <p>{{ book.description }}</p>
+        {% endif %}
+
+        {% if book.is_available %}
+        <form method="post" action="/requests/create/{{ book.id }}">
+            <textarea name="message" placeholder="Optional request message"></textarea>
+            <button class="btn" type="submit">Request Borrow</button>
+        </form>
+        {% endif %}
+
+        <form method="post" action="/books/{{ book.id }}/delete">
+            <button class="btn danger" type="submit">Delete</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

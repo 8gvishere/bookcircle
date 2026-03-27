@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Admin Panel</h1>
+
+<h2>Users</h2>
+<div class="card-grid">
+    {% for u in users %}
+    <div class="card">
+        <p><strong>Name:</strong> {{ u.full_name }}</p>
+        <p><strong>Email:</strong> {{ u.email }}</p>
+        <p><strong>Role:</strong> {{ u.role }}</p>
+        <p><strong>Active:</strong> {{ u.is_active }}</p>
+        {% if u.is_active %}
+        <form method="post" action="/admin/users/{{ u.id }}/deactivate">
+            <button class="btn danger" type="submit">Deactivate</button>
+        </form>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<h2>Books</h2>
+<div class="card-grid">
+    {% for book in books %}
+    <div class="card">
+        <p><strong>Title:</strong> {{ book.title }}</p>
+        <p><strong>Owner ID:</strong> {{ book.owner_id }}</p>
+        <form method="post" action="/admin/books/{{ book.id }}/remove">
+            <button class="btn danger" type="submit">Remove Book</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

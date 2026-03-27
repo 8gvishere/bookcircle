@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Loans</h1>
+<div class="card-grid">
+    {% for loan in loans %}
+    <div class="card">
+        <p><strong>Loan ID:</strong> {{ loan.id }}</p>
+        <p><strong>Book ID:</strong> {{ loan.book_id }}</p>
+        <p><strong>Due Date:</strong> {{ loan.due_date }}</p>
+        <p><strong>Status:</strong> {{ loan.status }}</p>
+        {% if loan.status != 'completed' %}
+        <form method="post" action="/loans/{{ loan.id }}/return">
+            <button class="btn" type="submit">Mark Returned</button>
+        </form>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
